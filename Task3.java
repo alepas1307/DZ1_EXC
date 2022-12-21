@@ -1,47 +1,22 @@
-//Реализуйте метод, принимающий в качестве аргументов два целочисленных массива, и возвращающий новый массив,
-//каждый элемент которого равен частному элементов двух входящих массивов в той же ячейке.
-//Если длины массивов не равны, необходимо как-то оповестить пользователя.
-//Важно: При выполнении метода единственное исключение, которое пользователь может увидеть - RuntimeException, т.е. ваше.
+//Разработайте программу, которая выбросит Exception, когда пользователь вводит пустую строку. Пользователю должно показаться сообщение, что пустые строки вводить нельзя.
 
-package DZ1_EXC;
+package DZ2_EXC;
 
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Task3 {
     public static void main(String[] args) {
-        int[] firstArray = getFilledArray(10);
-        int[] secondArray = getFilledArray(10);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Введите любой текст кроме пустой строки");
+        try {
+            String result = reader.readLine();
+            if(result.equals("")) throw new RuntimeException("Пустую строку вводить нельзя");
 
-        int[] divArray = divArrays(firstArray, secondArray);
-        printArray(divArray);
-
-        int[] badArray = divArrays(null, secondArray);
-    }
-
-    public static int[] divArrays(int[] firstArray, int[] secondArray) {
-        if (firstArray == null || secondArray == null) throw new RuntimeException("Нет массивов!!!");
-        if(firstArray.length != secondArray.length) throw new RuntimeException("Длины массивов не равны!!!");
-
-
-        int[] resultArr = new int[firstArray.length];
-        for (int i = 0; i < resultArr.length; i++) {
-            resultArr[i] = firstArray[i]/secondArray[i];
-        }
-        return resultArr;
-    }
-
-    public static int[] getFilledArray(int length){
-        int[] array = new int[length];
-        Random rnd = new Random();
-        for (int i = 0; i < length; i++) {
-            array[i] = rnd.nextInt(1,20);
-        }
-        return array;
-    }
-
-    public static void printArray(int[] array){
-        for (int number: array){
-            System.out.println(number);
+            System.out.println(result);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

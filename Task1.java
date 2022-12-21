@@ -1,33 +1,27 @@
-//Реализуйте 3 метода, чтобы в каждом из них получить разные исключения
+//Реализуйте метод, который запрашивает у пользователя ввод дробного числа (типа float), и возвращает введенное значение.
+//Ввод текста вместо числа не должно приводить к падению приложения, вместо этого, необходимо повторно запросить у пользователя ввод данных.
 
-package DZ1_EXC;
+package DZ2_EXC;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Task1 {
     public static void main(String[] args) {
-        String[] sArray = {"first str", null, "third str"};
-        int[] array = {1,2,3,4,5,6,7,8,9,10,11,12};
-        division(10, 0);
-        printValueByIndex(array,12);
-        printStringArray(sArray);
+        boolean work = true;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    }
-    // division by zero
-    public static void division(double firstNum, double secondNum){
-        if(secondNum ==  0) throw new ArithmeticException("На ноль делить нельзя!!!");
-        double result = firstNum/secondNum;
-        System.out.printf("Результат деления %f на %f равен %f.\n", firstNum, secondNum, result);
-    }
-    // out of bounds
-    public static void printValueByIndex(int[] array, int index){
-        if(index > array.length-1) throw new ArrayIndexOutOfBoundsException("Элемента под таким индексом не существует");
-        else System.out.printf("Элемент с индексом %d равен %d.\n",index, array[index]);
-    }
+        while(work){
+            System.out.print("Введите дробное число: ");
+            try{
+                float fNumber = Float.parseFloat(reader.readLine());
+                System.out.printf("Введенное число равно %f\n", fNumber);
+                work = false;
+            } catch (IOException|NumberFormatException e) {
+                System.out.println("Неверный ввод. Введите дробное число!!!");
+            }
 
-    // Null pointer exception
-    public static void printStringArray(String[] sArray){
-        for (String item: sArray){
-            if(item == null) throw new NullPointerException("Элемент отсутствует!!!");
-            System.out.println(item);
         }
     }
 }
